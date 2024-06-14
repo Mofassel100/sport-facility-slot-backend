@@ -11,6 +11,16 @@ export interface TUser {
   address: string;
 }
 
-export type TUserModel = Model<TUser,Record<string,unknown>>
+// export type TUserModel = Model<TUser,Record<string,unknown>>
 
+export type UserModel  = {
+  //instance methods for checking if the user exist
+
+  //instance methods for checking if passwords are matched
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean>;
+
+}& Model<TUser>
 // export type TUserRole = keyof typeof USER_ROLE;
