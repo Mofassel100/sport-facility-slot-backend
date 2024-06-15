@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constant';
 
 export interface TUser {
+  _id?:string
   name: string;
   email:string;
   password: string;
@@ -13,7 +15,8 @@ export interface TUser {
 // export type TUserModel = Model<TUser,Record<string,unknown>>
 
 export type UserModel  = {
-  //instance methods for checking if the user exist
+  isUserExistsByEmail(email: string): Promise<TUser>;
+  isUserExistsById(id: string): Promise<TUser>;
 
   //instance methods for checking if passwords are matched
   isPasswordMatched(
@@ -22,4 +25,4 @@ export type UserModel  = {
   ): Promise<boolean>;
 
 }& Model<TUser>
-// export type TUserRole = keyof typeof USER_ROLE;
+export type TUserRole = keyof typeof USER_ROLE;

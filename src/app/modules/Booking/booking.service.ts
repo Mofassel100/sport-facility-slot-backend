@@ -1,9 +1,41 @@
 import { Request, Response } from 'express';
 import { Booking } from './booking.model';
 import { getAvailableTimeSlots } from '../../utils/timeUtiles';
+import { IBooking } from './booking.interface';
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status';
 
 // Adjust the path as necessaryAdjust the path as necessary
+const createBooking = async (payload:IBooking,userId: string) => {
+    const { facility, date, startTime, endTime } = payload
+  
 
+    const overlappingBooking = await Booking.findOne(
+        facility,
+       );
+  
+    
+  
+      // Calculate payable amount (example calculation, adjust as necessary)
+      const payableAmount = (new Date(`${date}T${endTime}:00Z`).getTime() - new Date(`${date}T${startTime}:00Z`).getTime()) / 3600000 * 30;
+  
+      // Create a new booking
+      const newBooking = new Booking({
+        facility,
+        date,
+        startTime,
+        endTime,
+        user:userId,
+        payableAmount,
+        isBooked: 'confirmed'
+      });
+  
+      (await (await newBooking.save()).populate("facility")).populate("user");
+  
+  return newBooking
+   
+  };
+  
 const checkAvailability = async (dateParam:string) => {
 
   const date = dateParam ? new Date(dateParam) : new Date();
@@ -33,5 +65,6 @@ return availableSlots
 
 
 export const  bookingService = {
-    checkAvailability
+    checkAvailability,
+createBooking
 }

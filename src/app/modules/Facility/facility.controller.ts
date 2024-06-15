@@ -28,7 +28,7 @@ const getSingleFacilityDB = catchAsync(async (req, res) => {
   });
 });
 const getFacilityDB = catchAsync(async (req, res) => {
- 
+
   const result = await FacilityServices.getFacilityDB( );
 
   sendResponse(res, {

@@ -21,7 +21,7 @@ console.log(user)
   //create token and sent to the  client
 
   const jwtPayload = {
-    userId: user.email,
+    userId: user._id ,
     role: user.role,
   };
 

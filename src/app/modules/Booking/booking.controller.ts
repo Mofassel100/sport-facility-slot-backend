@@ -7,7 +7,7 @@ import { bookingService } from './booking.service';
 
 const checkAvailability = catchAsync(async (req, res) => {
   const dateParam = req.query.date as string;
-
+  
   const result = await bookingService.checkAvailability(dateParam);
 
   sendResponse(res, {
@@ -17,6 +17,19 @@ const checkAvailability = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createBooking = catchAsync(async (req, res) => {
+ const bookingData = req.body
+ const {userId} = req.user
+  const result = await bookingService.createBooking(bookingData,userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Availability checked successfully',
+    data: result,
+  });
+});
+
 // const getSingleFacilityDB = catchAsync(async (req, res) => {
 //   const { id} = req.params;
 //   const result = await FacilityServices.getSingleFacilityDB( id);
@@ -53,6 +66,7 @@ const checkAvailability = catchAsync(async (req, res) => {
 
 
 export const bookingControllers = {
-  checkAvailability
+  checkAvailability,
+  createBooking
 
 };
