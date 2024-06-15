@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import { IBooking } from "./booking.interface";
+import { Schema, model } from "mongoose";
+import { IBooking, TSBooking } from "./booking.interface";
 
 const BookingSchema = new Schema<IBooking>({
     date: { type: Date, required: true },
@@ -11,3 +11,12 @@ const BookingSchema = new Schema<IBooking>({
     isBooked: { type: String, enum: ['confirmed', 'unconfirmed', 'canceled'], default: 'unconfirmed' }
   });
   
+
+const SBookingSchema = new Schema<TSBooking>({
+  date: { type: String, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+});
+
+export const Booking = model<IBooking>('Booking',BookingSchema);
+

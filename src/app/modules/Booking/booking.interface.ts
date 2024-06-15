@@ -10,4 +10,19 @@ export interface IBooking {
     payableAmount: number;
     isBooked: 'confirmed' | 'unconfirmed' | 'canceled';
   }
+   export interface TSBooking  {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }
+ export interface TimeSlot {
+    startTime: string;
+    endTime: string;
+  }
   
+  export interface AvailabilityResponse {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: TimeSlot[];
+  }
