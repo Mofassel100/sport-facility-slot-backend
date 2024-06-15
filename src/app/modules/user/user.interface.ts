@@ -6,7 +6,6 @@ export interface TUser {
   email:string;
   password: string;
   phone: string;
-  passwordChangedAt?: Date;
   role: 'admin' | 'user'
   address: string;
 }

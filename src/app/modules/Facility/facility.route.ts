@@ -11,6 +11,18 @@ router.post(
   validateRequest(FacilityValidation.createFacilityValidationSchema),
   FacilityControllers.createFacilityDB
 );
+router.get(
+  '/facility/:id',
+  FacilityControllers.getSingleFacilityDB
+);
+router.get(
+  '/facility',
+  FacilityControllers.getFacilityDB
+);
+router.delete(
+  '/facility/:id',
+  FacilityControllers.deleteFacilityDB
+);
 
 
 export const FacilityRoutes = router;
