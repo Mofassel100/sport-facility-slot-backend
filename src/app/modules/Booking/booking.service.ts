@@ -18,7 +18,6 @@ const createBooking = async (payload:IBooking,userId: any) => {
       //  console.log("facility",overlappingBooking) 
   const perHoure = overlappingBooking?.pricePerHour
   const start = new Date(`${date}T${startTime}:00Z`).getTime();
-  console.log("start:",start)
   const end = new Date(`${date}T${endTime}:00Z`).getTime();
   const hours = (end - start) / 3600000;
   const pricePerHour = perHoure as number; // You can retrieve this from the facility model if it varies
@@ -36,10 +35,7 @@ const createBooking = async (payload:IBooking,userId: any) => {
         payableAmount,
         isBooked: 'confirmed'
       };
-    console.log(newBooking)
-  
   const result = await Booking.create(newBooking);
-  
   return result
    
   };

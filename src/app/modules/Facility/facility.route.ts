@@ -11,8 +11,15 @@ const router = express.Router();
 
 router.post(
   '/facility',
+  auth(USER_ROLE.admin),
   validateRequest(FacilityValidation.createFacilityValidationSchema),
   FacilityControllers.createFacilityDB
+);
+router.put(
+  '/facility/:id',
+  auth(USER_ROLE.admin),
+  validateRequest(FacilityValidation.updatedFacilityValidationSchema),
+  FacilityControllers.UpdatedFacilityDB
 );
 router.get(
   '/facility/:id',
@@ -25,6 +32,7 @@ router.get(
 );
 router.delete(
   '/facility/:id',
+  auth(USER_ROLE.admin),
   FacilityControllers.deleteFacilityDB
 );
 

@@ -25,10 +25,16 @@ const getFacilityDB = async ( ) => {
   return getFacility
   
 };
-
+const updateFacilityFromDB = async(id:string)=>{
+  const UpdatedFacility = await Facility.findByIdAndUpdate(
+    {_id:id},
+    { isDeleted: true },
+    { new: true},
+  );
+  return UpdatedFacility
+}
 const deleteFacilityFromDB = async (id: string) => {
   const session = await mongoose.startSession();
-
   try {
     session.startTransaction();
 
@@ -37,18 +43,11 @@ const deleteFacilityFromDB = async (id: string) => {
       { isDeleted: true },
       { new: true, session },
     );
-
     if (!deletedFacility) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete Facility');
     }
-
- 
-
-
-
     await session.commitTransaction();
     await session.endSession();
-
     return deletedFacility;
   } catch (err) {
     await session.abortTransaction();
@@ -61,5 +60,6 @@ export const FacilityServices = {
   createFacilityDB,
   getSingleFacilityDB,
   getFacilityDB,
-  deleteFacilityFromDB 
+  deleteFacilityFromDB,
+  updateFacilityFromDB 
 };

@@ -38,6 +38,17 @@ const getFacilityDB = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const UpdatedFacilityDB = catchAsync(async (req, res) => {
+  const { id} = req.params;
+  const result = await FacilityServices.updateFacilityFromDB( id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: result?  'Facility is updated succesfully': "No Data Found",
+    data: result,
+  });
+});
 const deleteFacilityDB = catchAsync(async (req, res) => {
   const { id} = req.params;
   const result = await FacilityServices.deleteFacilityFromDB( id);
@@ -55,6 +66,7 @@ export const FacilityControllers = {
   createFacilityDB,
   getSingleFacilityDB,
   deleteFacilityDB,
-  getFacilityDB
+  getFacilityDB,
+  UpdatedFacilityDB
 
 };
