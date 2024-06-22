@@ -20,7 +20,7 @@ router.get(
 );
 router.get(
   '/facility',
-  auth(USER_ROLE.user),
+  // auth(USER_ROLE.user),
   FacilityControllers.getFacilityDB
 );
 router.delete(

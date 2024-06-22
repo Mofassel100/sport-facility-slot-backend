@@ -16,7 +16,7 @@ const loginUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is logged in succesfully!',
+    message:result? 'User is logged in succesfully!': "No Data Found",
     token:accessToken,
     data:user ,
   });

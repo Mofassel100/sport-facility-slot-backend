@@ -14,7 +14,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const token = authToken?.substring(7, authToken?.length);
     // checking if the token is missing
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
+      throw new AppError(httpStatus.UNAUTHORIZED, "You have no access to this route");
     }
    
     // checking if the given token is valid

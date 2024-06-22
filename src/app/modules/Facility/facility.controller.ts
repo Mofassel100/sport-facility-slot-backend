@@ -21,10 +21,10 @@ const getSingleFacilityDB = catchAsync(async (req, res) => {
   const result = await FacilityServices.getSingleFacilityDB( id);
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Facility is retier succesfully',
-    data: result,
+    success: result ? true : false,
+    statusCode:result ? httpStatus.OK:httpStatus.NOT_FOUND,
+    message:result ? 'Facility is retier succesfully':"No Data Found",
+    data: result ? result : {},
   });
 });
 const getFacilityDB = catchAsync(async (req, res) => {
@@ -32,9 +32,9 @@ const getFacilityDB = catchAsync(async (req, res) => {
   const result = await FacilityServices.getFacilityDB( );
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Facility is retier succesfully',
+    success: result.length > 0 ? true : false,
+    statusCode: result.length >0 ?  httpStatus.OK : httpStatus.NOT_FOUND,
+    message:result?  'Facility is retier succesfully':"No Data Found",
     data: result,
   });
 });
@@ -45,7 +45,7 @@ const deleteFacilityDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Facility is delete succesfully',
+    message: result?  'Facility is delete succesfully': "No Data Found",
     data: result,
   });
 });

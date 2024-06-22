@@ -13,7 +13,7 @@ const checkAvailability = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Availability checked successfully',
+    message:result?  'Availability checked successfully' : "No Data Found",
     data: result,
   });
 });
@@ -26,6 +26,37 @@ const createBooking = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Availability checked successfully',
+    data: result,
+  });
+});
+const getAllBookingFromDB = catchAsync(async (req, res) => {
+  const result = await bookingService.getAllBookingFromDB();
+  sendResponse(res, {
+    statusCode:result.length > 0 ? httpStatus.OK : httpStatus.NOT_FOUND,
+    success: result.length > 0 ? true : false,
+    message: result.length > 0 ?  'Bookings retrieved successfully':"No Data Found",
+    data: result,
+  });
+});
+// get all book (only user)
+const getUserBookingFromDB = catchAsync(async (req, res) => {
+  const {userId} = req.user
+  const result = await bookingService.getUserBookingFromDB(userId);
+  sendResponse(res, {
+    statusCode: result.length > 0 ? httpStatus.OK : httpStatus.NOT_FOUND,
+    success: result.length > 0 ? true : false,
+    message:result.length >0 ?  'User Bookings retrieved successfully':"No Data Found",
+    data: result,
+  });
+});
+const deleteBookingFromDB = catchAsync(async (req, res) => {
+  const {userId} = req.user
+  const { id} = req.params;
+  const result = await bookingService.deleteBookingFromDB(id,userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: result ? "User Bookings deleted successfully" : "No Data Found",
     data: result,
   });
 });
@@ -67,6 +98,9 @@ const createBooking = catchAsync(async (req, res) => {
 
 export const bookingControllers = {
   checkAvailability,
-  createBooking
+  createBooking,
+  getAllBookingFromDB,
+  getUserBookingFromDB,
+  deleteBookingFromDB
 
 };
