@@ -40,7 +40,8 @@ const getFacilityDB = catchAsync(async (req, res) => {
 });
 const UpdatedFacilityDB = catchAsync(async (req, res) => {
   const { id} = req.params;
-  const result = await FacilityServices.updateFacilityFromDB( id);
+  const data = req.body
+  const result = await FacilityServices.updateFacilityFromDB( id,data);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

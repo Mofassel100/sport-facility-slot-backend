@@ -25,10 +25,10 @@ const getFacilityDB = async ( ) => {
   return getFacility
   
 };
-const updateFacilityFromDB = async(id:string)=>{
+const updateFacilityFromDB = async(id:string,data:Partial<TFacility>)=>{
   const UpdatedFacility = await Facility.findByIdAndUpdate(
     {_id:id},
-    { isDeleted: true },
+    { ...data },
     { new: true},
   );
   return UpdatedFacility

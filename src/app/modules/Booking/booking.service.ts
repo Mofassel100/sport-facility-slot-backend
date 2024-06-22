@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+
 import { Booking } from './booking.model';
 import { getAvailableTimeSlots } from '../../utils/timeUtiles';
 import { IBooking } from './booking.interface';
@@ -26,11 +26,27 @@ const createBooking = async (payload:IBooking,userId: any) => {
 //       const payableAmount = (new Date(`${date}T${endTime}:00Z`).getTime() - new Date(`${date}T${startTime}:00Z`).getTime()) / 3600000 * 30;
 // console.log(perHoure,"payableAmount",start,end, hours)
       // Create a new booking
-  const newBooking = {
+      // const parsedDate = new Date(date);
+      // const parsedStartTime = new Date(`${date}T${startTime}:00.000Z`);
+      // const parsedEndTime = new Date(`${date}T${endTime}:00.000Z`);
+  
+      // const newBooking = new Booking({
+      //   date: parsedDate,
+      //   startTime: parsedStartTime,
+      //   endTime: parsedEndTime,
+      //   user: req.user._id, // Assuming user information is stored in req.user
+      //   facility: mongoose.Types.ObjectId(facility),
+      //   payableAmount: 100, // Example value, you can calculate based on your logic
+      //   isBooked: 'unconfirmed', // Default state
+      // });
+      console.log(payableAmount)
+  const newBooking:IBooking = {
         facility,
         date,
-        startTime:startTime,
-        endTime:endTime,
+        
+        startTime,
+        endTime
+        ,
         user:userId,
         payableAmount,
         isBooked: 'confirmed'
@@ -46,7 +62,7 @@ const checkAvailability = async (dateParam:string) => {
   // const queryDate = date || new Date().toISOString().split('T')[0]; // Default to today's date if not provided
 
 //  console.log(date)
-  const bookings = await Booking.find({ date:date });
+  const bookings = await Booking.find({date:date} );
     // const totalSlots: TimeSlot[] = [
     //   { startTime: '08:00', endTime: '10:00' },
     //   { startTime: '14:00', endTime: '16:00' },

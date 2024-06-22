@@ -3,7 +3,6 @@ import validateRequest from '../../middlewares/validateRequest';
 import { FacilityValidation } from './facility.validation';
 import { FacilityControllers } from './facility.controller';
 import auth from '../../middlewares/auth';
-import { UserRoutes } from '../user/user.route';
 import { USER_ROLE } from '../user/user.constant';
 
 

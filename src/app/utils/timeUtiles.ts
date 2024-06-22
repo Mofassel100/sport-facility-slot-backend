@@ -1,4 +1,4 @@
-import { IBooking } from "../modules/Booking/booking.interface";
+import { IBooking, TSBooking } from "../modules/Booking/booking.interface";
 
 
 interface TimeSlot {
@@ -10,23 +10,25 @@ export const getAvailableTimeSlots = (bookings: IBooking[]): TimeSlot[] => {
   const openingHour = 8; // 8:00 AM
   const closingHour = 18; // 6:00 PM
   const timeSlots: TimeSlot[] = [];
-
+  //  const parsedDate = new Date(date);
+  //     const parsedStartTime = new Date(`${date}T${startTime}:00.000Z`);
+  //     const parsedEndTime = new Date(`${date}T${endTime}:00.000Z`);
   let currentTime = new Date();
   currentTime.setHours(openingHour, 0, 0, 0);
 
   const closingTime = new Date();
   closingTime.setHours(closingHour, 0, 0, 0);
 
-  bookings.sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
+  bookings.sort((a, b) =>new Date(`${a.date}T${a.startTime}:00.000Z`)?.getTime() - new Date(`${b.date}T${b.startTime}:00.000Z`)?.getTime());
 
   for (const booking of bookings) {
-    if (currentTime < booking.startTime) {
+    if (currentTime < new Date(`${booking?.date}T${booking?.startTime}:00.000Z`)) {
       timeSlots.push({
-        startTime: currentTime.toTimeString().slice(0, 5),
-        endTime: booking.startTime.toTimeString().slice(0, 5)
+        startTime: currentTime?.toTimeString().slice(0, 5),
+        endTime: new Date(`${booking?.date}T${booking?.startTime}:00.000Z`)?.toTimeString().slice(0, 5)
       });
     }
-    currentTime = booking.endTime > currentTime ? booking.endTime : currentTime;
+    currentTime =new Date(`${booking?.date}T${booking?.endTime}:00.000Z`) > currentTime ? new Date(`${booking?.date}T${booking?.endTime}:00.000Z`) : currentTime;
   }
 
   if (currentTime < closingTime) {

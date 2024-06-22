@@ -1,5 +1,4 @@
 import httpStatus from 'http-status';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
@@ -49,6 +48,7 @@ console.log
 const refreshToken = async (token: string) => {
   // checking if the given token is valid
   // const decoded = jwt.verify(
+    console.log(token)
   //   token,
   //   config.jwt_refresh_secret as string,
   // ) as JwtPayload;
